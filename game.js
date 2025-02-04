@@ -20,7 +20,7 @@ function getString(numIn) {
 }
 
 function checkHumanChoiceValid(userInput) {
-    if (userInput == "rock" || userInput == "paper" || userInput == "scissors") {
+    if (userInput == "rock" || userInput == "paper" || userInput == "scissors" || userInput == "init") {
         return true
     }
     else {
@@ -53,22 +53,23 @@ function getHumanChoice(userInput) {
 
 let humanScore = 0;
 let computerScore = 0;
+let outcome = "draw";
 
 function gameLogic(humanInput, computerInput) {
     if (humanInput == computerInput) {
-        let outcome = "draw";
+        outcome = "draw"
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
     }
     else if (humanInput == "rock" && computerInput == "scissors" 
         || humanInput == "scissors" && computerInput == "paper" 
         || humanInput == "paper" && computerInput == "rock") {
             humanScore += 1;
-            let outcome = "player wins";
+            outcome = "player wins";
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
     }
 
     else {
-        let outcome = "computer wins";
+        outcome = "computer wins";
         computerScore += 1;
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
     }
@@ -76,23 +77,30 @@ function gameLogic(humanInput, computerInput) {
 
 
 let userInput = "";
+let roundLimit = 5;
+let roundNumber = 1;
 console.log("Game Starting");
-while (true) {
-    console.log("The score is player:", humanScore, "computer:", computerScore);
-    userInput = prompt("Rock, paper, or scissors?")
-    userInput = getHumanChoice(userInput);
-    computerInput = getString(getComputerChoice());
-    if (userInput == "quit")
-    {
-        break;
-    }
-    else if (userInput == 0) {
-        alert("Error: invalid entry");
-        continue;
-    }
-    else
-    {
-        console.log(gameLogic(userInput, computerInput));        
+
+
+    while (roundNumber < 6) {
+        alert("Click OK to begin");
+        console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
+        userInput = prompt("Rock, paper, or scissors?");
+        userInput = getHumanChoice(userInput);
+        computerInput = getString(getComputerChoice());
+        if (userInput == "quit")
+        {
+            break;
+        }
+        else if (userInput == 0) {
+            alert("Error: invalid entry");
+            continue;
+        }
+        else
+        {
+            console.log(gameLogic(userInput, computerInput));        
+        }
+        roundNumber += 1;
     }
 
-}
+console.log("Game ended")

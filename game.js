@@ -28,9 +28,16 @@ function checkHumanChoiceValid(userInput) {
     }
 }
 
-function getHumanChoice() {
-    let userInput = prompt("Rock, paper, or scissors?")
-    userInput = userInput.toLowerCase()
+function getHumanChoice(userInput) {
+    try {
+        userInput = userInput.toLowerCase()
+    }
+
+    catch (typeerror) {
+        console.log("Type error caught")
+        return "quit";
+    }
+    
 
     if (checkHumanChoiceValid(userInput) == true) {
         return userInput;
@@ -66,10 +73,14 @@ function gameLogic(humanInput, computerInput) {
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
     }
 }
-    
 
+
+let userInput = "";
+console.log("Game Starting");
 while (true) {
-    userInput = getHumanChoice();
+    console.log("The score is player:", humanScore, "computer:", computerScore);
+    userInput = prompt("Rock, paper, or scissors?")
+    userInput = getHumanChoice(userInput);
     computerInput = getString(getComputerChoice());
     if (userInput == "quit")
     {
@@ -81,7 +92,6 @@ while (true) {
     }
     else
     {
-        console.log("The score is player:", humanScore, "computer:", computerScore);
         console.log(gameLogic(userInput, computerInput));        
     }
 

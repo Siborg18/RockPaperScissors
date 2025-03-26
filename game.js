@@ -77,13 +77,12 @@ function gameLogic(humanInput, computerInput) {
 
 
 let userInput = "";
-let roundLimit = 5;
+let roundLimit = 5000;
 let roundNumber = 1;
 console.log("Game Starting");
-
+alert("Click OK to begin"); // added this alert because without it, prompt() blocks the whole program
 
     while (roundNumber < 6) {
-        alert("Click OK to begin"); // added this alert because without it, prompt() blocks the whole program
         console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
         userInput = prompt("Rock, paper, or scissors?");
         userInput = getHumanChoice(userInput);

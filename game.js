@@ -1,3 +1,13 @@
+const container = document.querySelector("#container")
+
+const div = document.createElement("div");
+
+div.classList.add("content");
+div.style.color = "blue"
+div.textContent = "Game Starting";
+
+container.appendChild(div);
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -5,6 +15,11 @@ function getRandomInt(max) {
 function getComputerChoice() {
     let myNum = getRandomInt(3);
     return myNum;
+}
+
+function getUserInput() {
+    userInput = prompt("Rock, paper, or scissors?");
+    return userInput;
 }
 
 function getString(numIn) {
@@ -34,7 +49,7 @@ function getHumanChoice(userInput) {
     }
 
     catch (typeerror) {
-        console.log("Type error caught")
+        div.innerText = "Type error caught";
         return "quit";
     }
     
@@ -59,6 +74,7 @@ function gameLogic(humanInput, computerInput) {
     if (humanInput == computerInput) {
         outcome = "draw"
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
+        div.innerText = "The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome;
     }
     else if (humanInput == "rock" && computerInput == "scissors" 
         || humanInput == "scissors" && computerInput == "paper" 
@@ -66,12 +82,14 @@ function gameLogic(humanInput, computerInput) {
             humanScore += 1;
             outcome = "player wins";
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
+        div.innerText = "The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome;
     }
 
     else {
         outcome = "computer wins";
         computerScore += 1;
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
+        div.innerText = "The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome;
     }
 }
 
@@ -79,27 +97,27 @@ function gameLogic(humanInput, computerInput) {
 let userInput = "";
 let roundLimit = 5000;
 let roundNumber = 1;
-console.log("Game Starting");
-alert("Click OK to begin"); // added this alert because without it, prompt() blocks the whole program
 
-    while (roundNumber < 6) {
-        console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
-        userInput = prompt("Rock, paper, or scissors?");
-        userInput = getHumanChoice(userInput);
-        computerInput = getString(getComputerChoice());
-        if (userInput == "quit")
-        {
-            break;
-        }
-        else if (userInput == 0) {
-            alert("Error: invalid entry");
-            continue;
-        }
-        else
-        {
-            console.log(gameLogic(userInput, computerInput));        
-        }
-        roundNumber += 1;
+while (roundNumber < 6) {
+    alert("Stop prompt from breaking everything");
+    console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
+    div.innerText = "The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber;
+    userInput = setTimeout(getUserInput(), 500);
+    userInput = getHumanChoice(userInput);
+    computerInput = getString(getComputerChoice());
+    if (userInput == "quit")
+    {
+        break;
     }
+    else if (userInput == 0) {
+        continue;
+    }
+    else
+    {
+        console.log(gameLogic(userInput, computerInput));        
+    }
+    roundNumber += 1;
+}
 
+div.innerText = "Game Ended";
 console.log("Game ended")

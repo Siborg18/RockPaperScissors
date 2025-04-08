@@ -17,11 +17,6 @@ function getComputerChoice() {
     return myNum;
 }
 
-function getUserInput() {
-    userInput = prompt("Rock, paper, or scissors?");
-    return userInput;
-}
-
 function getString(numIn) {
     if (numIn == 0) {
         return "rock";
@@ -35,6 +30,7 @@ function getString(numIn) {
 }
 
 function checkHumanChoiceValid(userInput) {
+    // added buttons so is now obsolete
     if (userInput == "rock" || userInput == "paper" || userInput == "scissors" || userInput == "init") {
         return true
     }
@@ -44,6 +40,7 @@ function checkHumanChoiceValid(userInput) {
 }
 
 function getHumanChoice(userInput) {
+    // added buttons so is now obsolete
     try {
         userInput = userInput.toLowerCase()
     }
@@ -98,11 +95,29 @@ let userInput = "";
 let roundLimit = 5000;
 let roundNumber = 1;
 
-while (roundNumber < 6) {
-    alert("Stop prompt from breaking everything");
+function waitForUserEntry() {
+    // was testing user entry by letting player enter their name
+    document.getElementById("userentry").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevents a new line in the textarea
+            div.innerText = this.value;
+            // document.getElementById("output").textContent = this.value;
+        }
+    });
+    
+}
+
+function waitForButtonPress() {
+    
+
+};
+
+while (true) {
     console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
     div.innerText = "The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber;
-    userInput = setTimeout(getUserInput(), 500);
+    // waitForUserEntry();
+    // add listener to check when a button is clicked and what did the player select
+    // get the computer's choice
     userInput = getHumanChoice(userInput);
     computerInput = getString(getComputerChoice());
     if (userInput == "quit")

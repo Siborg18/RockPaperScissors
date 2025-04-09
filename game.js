@@ -2,7 +2,7 @@ const container = document.querySelector("#container")
 
 const div = document.createElement("div");
 
-div.classList.add("content");
+div.classList.add("outputText");
 div.style.color = "blue"
 div.textContent = "Game Starting";
 
@@ -112,27 +112,16 @@ function waitForButtonPress() {
 
 };
 
-while (true) {
-    console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
-    div.innerText = "The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber;
-    // waitForUserEntry();
-    // add listener to check when a button is clicked and what did the player select
-    // get the computer's choice
-    userInput = getHumanChoice(userInput);
-    computerInput = getString(getComputerChoice());
-    if (userInput == "quit")
-    {
-        break;
-    }
-    else if (userInput == 0) {
-        continue;
-    }
-    else
-    {
-        console.log(gameLogic(userInput, computerInput));        
-    }
-    roundNumber += 1;
-}
+
+div.innerText = "Game started";
+console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
+div.innerText = "The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber;
+// waitForUserEntry();
+// add listener to check when a button is clicked and what did the player select
+// get the computer's choice
+userInput = getHumanChoice(userInput);
+computerInput = getString(getComputerChoice());
+
 
 div.innerText = "Game Ended";
 console.log("Game ended")

@@ -1,12 +1,7 @@
 const container = document.querySelector("#container")
 
-const div = document.createElement("div");
-
-div.classList.add("outputText");
-div.style.color = "blue"
-div.textContent = "Game Starting";
-
-container.appendChild(div);
+var myOutput = document.getElementById("primary-output");
+var myUpdate = document.getElementById("round-update");
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -63,37 +58,37 @@ function getHumanChoice(userInput) {
     }    
 }
 
-let humanScore = 0;
-let computerScore = 0;
-let outcome = "draw";
+var humanScore = 0;
+var computerScore = 0;
+let gameResult = "draw";
 
 function gameLogic(humanInput, computerInput) {
     if (humanInput == computerInput) {
-        outcome = "draw"
-        console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
-        div.innerText = "The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome;
+        gameResult = "draw"
+        console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", gameResult);
+        myUpdate.innerHTML = `The player chose, ${humanInput}, the computer chose, ${computerInput}, The outcome is: ${gameResult}`
     }
     else if (humanInput == "rock" && computerInput == "scissors" 
         || humanInput == "scissors" && computerInput == "paper" 
         || humanInput == "paper" && computerInput == "rock") {
             humanScore += 1;
-            outcome = "player wins";
-        console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
-        div.innerText = "The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome;
+            gameResult = "player wins";
+        console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", gameResult);
+        myUpdate.innerHTML = `The player chose, ${humanInput}, the computer chose, ${computerInput}, The outcome is: ${gameResult}`
     }
 
     else {
-        outcome = "computer wins";
+        gameResult = "computer wins";
         computerScore += 1;
-        console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome);
-        div.innerText = "The player chose", userInput, "the computer chose", computerInput, "The outcome is:", outcome;
+        console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", gameResult);
+        myUpdate.innerHTML = `The player chose, ${humanInput}, the computer chose, ${computerInput}, The outcome is: ${gameResult}`;
     }
 }
 
 
 let userInput = "";
 let roundLimit = 5000;
-let roundNumber = 1;
+var roundNumber = 1;
 
 function waitForUserEntry() {
     // was testing user entry by letting player enter their name
@@ -108,20 +103,36 @@ function waitForUserEntry() {
 }
 
 function waitForButtonPress() {
-    
+    const rockButton = document.getElementById("rock");
+    const paperButton = document.getElementById("paper");
+    const scissorsButton = document.getElementById("scissors");
 
+    rockButton.addEventListener("click", (event) => {
+        const computerChoice = getString(getComputerChoice());
+        const humanChoice = "rock"
+        gameLogic(humanChoice, computerChoice);
+    })
+
+    paperButton.addEventListener("click", (event) => {
+        const computerChoice = getString(getComputerChoice());
+        const humanChoice = "paper"
+        gameLogic(humanChoice, computerChoice);
+    })
+
+    scissorsButton.addEventListener("click", (event) => {
+        const computerChoice = getString(getComputerChoice());
+        const humanChoice = "scissors"
+        gameLogic(humanChoice, computerChoice);
+    })
 };
 
 
-div.innerText = "Game started";
+myOutput.innerHTML = "Game Started";
 console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
-div.innerText = "The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber;
-// waitForUserEntry();
+var outputText = `The score is Player: ${humanScore} Computer: ${computerScore} Round number: ${roundNumber}`;
+myOutput.innerHTML =  outputText;
+waitForButtonPress();
 // add listener to check when a button is clicked and what did the player select
 // get the computer's choice
 userInput = getHumanChoice(userInput);
 computerInput = getString(getComputerChoice());
-
-
-div.innerText = "Game Ended";
-console.log("Game ended")

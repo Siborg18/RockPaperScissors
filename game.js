@@ -58,14 +58,19 @@ function getHumanChoice(userInput) {
     }    
 }
 
+
 var humanScore = 0;
 var computerScore = 0;
 let gameResult = "draw";
+let scoreToWin = 5;
+var roundNumber = 1;
 
 function gameLogic(humanInput, computerInput) {
+    checkScoresForWin(humanScore, computerScore);
     if (humanInput == "reset") {
         roundUpdate.innerHTML = "Game reset";
-        scoreUpdate.innerHTML = `The score is Player: ${humanScore} Computer: ${computerScore} Round number: ${roundNumber}`;
+        scoreUpdate.innerHTML = `The score is Player: ${humanScore} Computer: ${computerScore}`;
+
     }
     else if (humanInput == computerInput) {
         gameResult = "draw"
@@ -81,10 +86,7 @@ function gameLogic(humanInput, computerInput) {
         console.log("The player chose", userInput, "the computer chose", computerInput, "The outcome is:", gameResult);
         roundUpdate.innerHTML = `The player chose ${humanInput}, the computer chose ${computerInput}, The outcome is: ${gameResult}`
         scoreUpdate.innerHTML = `The score is: Player ${humanScore} Computer ${computerScore}`;
-
-
     }
-
     else {
         gameResult = "computer wins";
         computerScore += 1;
@@ -95,10 +97,19 @@ function gameLogic(humanInput, computerInput) {
     
 }
 
+function checkScoresForWin(humanScore, computerScore) {
+    if (humanScore > 1) {
+        roundUpdate.innerHTML = "Player Won!";
+        scoreUpdate.innerHTML = `The score is Player: ${humanScore} Computer: ${computerScore}`;
+    }
+    if (computerScore > 1) {
+        roundUpdate.innerHTML = "Computer Won!";
+        scoreUpdate.innerHTML = `The score is Player: ${humanScore} Computer: ${computerScore}`;
+    }
+}
 
 let userInput = "";
-let roundLimit = 5000;
-var roundNumber = 1;
+
 
 function waitForUserEntry() {
     // was testing user entry by letting player enter their name
@@ -149,7 +160,7 @@ function waitForButtonPress() {
 
 
 console.log("The score is player:", humanScore, "computer:", computerScore, "Round number", roundNumber);
-var roundUpdateOutput = `The score is Player: ${humanScore} Computer: ${computerScore} Round number: ${roundNumber}`;
+var roundUpdateOutput = `The score is Player: ${humanScore} Computer: ${computerScore}`;
 roundUpdate.innerHTML =  roundUpdateOutput;
 waitForButtonPress();
 // add listener to check when a button is clicked and what did the player select
